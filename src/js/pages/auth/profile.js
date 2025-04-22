@@ -2,6 +2,7 @@ import { getCurrentUser, getApiKey, getToken, logout } from '../../api/auth.js';
 import { navigateTo } from '../../utils/router.js';
 import { setGetPetFormListener, setGetAllPetsFormListener, setUpdatePetFormListener } from '../../handlers/index.js'
 import { authFetch } from '../../utils/authFetch.js';
+import { load } from '../../utils/storage.js';
 
 // DOM elements for user profile
 let profileContent;
@@ -71,6 +72,8 @@ function init() {
       const size = document.getElementById('pet-size').value.trim();
       const description = document.getElementById('pet-description').value.trim();
       const imageUrl = document.getElementById('pet-image-url').value.trim();
+
+      const user = load('user');
   
       // Validate form data
       if (name === '' || breed === '' || age === '' || size === '' || description === '') {
