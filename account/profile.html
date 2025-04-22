@@ -5,105 +5,191 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PETsome - Profile Page</title>
   <link href="../src/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 <body class="bg-white min-h-screen">
-  <!-- Header/Navigation -->
-  <header class="bg-white px-6 md:px-20 py-6 md:py-14 shadow-sm">
+  <header class="bg-white px-6 md:px-20 py-6 md:py-14 shadow-sm">  
     <div class="container mx-auto flex justify-between items-center">
       <div class="flex items-center">
-        <!-- Logo -->
         <div class="flex items-center">
-          <img src="../assets/images/PetsomeLogo.png" width="381" height="160" alt="PETsome Logo" class="w-48 md:w-[381px] h-auto md:h-[160px]">
+          <img src="../assets/images/PetsomeLogo.png" width="300" height="160" alt="PETsome Logo" class="w-40 md:w-[381px] h-auto md:h-[160px]">
         </div>
       </div>
-  
-      <!-- Mobile Menu Button -->
-      <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+      <button id="mobile-menu-button" aria-expanded="false" class="block md:hidden focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
-      
-      <!-- Desktop Navigation - Hidden on mobile, visible on desktop -->
+      <button id="mobile-menu-button-loggedin" aria-expanded="false" class="hidden md:hidden focus:outline-none">
+        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-dark">
+          <div class="flex items-center justify-center text-primary-dark font-semibold">
+            <span class="material-symbols-outlined icon-medium" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;">
+              face
+            </span>
+          </div>
+        </div>
+      </button>
       <div class="hidden md:block">
-        <!-- Guest navigation (visible when logged out) -->
-        <div id="guest-nav" class="space-x-4">
+        <div id="auth-buttons" class="space-x-4">
           <a href="/account/login" class="inline-block px-6 py-2 bg-primary text-white rounded hover:underline transition">Login</a>
           <a href="/account/register" class="inline-block px-6 py-2 bg-primary text-white rounded hover:underline transition">Sign Up</a>
         </div>
-        
-        <!-- User navigation (visible when logged in) -->
-        <div id="user-nav" class="hidden">
+        <div id="user-menu" class="hidden">
           <div class="relative">
-            <button id="profile-dropdown-button" class="flex items-center px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 transition">
-              <div class="mr-2 w-8 h-8 bg-primary-dark rounded-full flex items-center justify-center text-white">
-                <span id="user-initials">US</span>
+            <button id="profile-button" class="flex items-center focus:outline-none">
+              <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-dark">
+                <div class="flex items-center justify-center text-primary-dark font-semibold">
+                  <span class="material-symbols-outlined icon-large" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;">
+                    face
+                  </span>
+                </div>
               </div>
-              <span id="user-name-display" class="mr-2 font-medium">User</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
             </button>
-            
-            <!-- Dropdown Menu (hidden by default) -->
             <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden">
-              <a href="/listings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
-                Listings
-              </a>
-              <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
+              <a href="profile.html" class="flex self-end px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
                 My Profile
               </a>
-              <hr class="my-1 border-gray-200">
-              <button id="logout-btn" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition">
-                Logout
+              <a href="/listings.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
+                Listings
+              </a>
+              <button id="logout-button" class="block text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition w-full">
+                Log out
               </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
-    <!-- Mobile Navigation (hidden by default) -->
-    <div id="mobile-menu" class="md:hidden hidden mt-4">
-      <!-- Guest Navigation (Mobile) -->
-      <div id="mobile-guest-nav" class="flex flex-col space-y-2 py-4">
+    <div id="mobile-menu" class="hidden md:hidden mt-4">
+      <div id="mobile-auth-buttons" class="flex flex-col space-y-2 py-4">
         <a href="/account/login" class="px-6 py-2 bg-primary text-white rounded hover:underline transition">Login</a>
         <a href="/account/register" class="px-6 py-2 bg-primary text-white rounded hover:underline transition">Sign Up</a>
       </div>
-      
-      <!-- User Navigation (Mobile) -->
-      <div id="mobile-user-nav" class="hidden">
-        <div class="flex flex-col items-center space-y-2 py-4">
-          <div class="w-8 h-8 bg-primary-dark rounded-full flex items-center justify-center text-white">
-            <span id="mobile-user-initials">US</span>
+      <div id="mobile-user-menu" class="hidden py-4">
+        <div class="flex items-end px-2 py-2">
+          <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-dark">
+            <div class="w-full h-full bg-primary-dark flex items-end justify-center text-white text-lg font-semibold">
+              <span id="mobile-user-initials">U</span>
+            </div>
           </div>
           <span id="mobile-user-name" class="ml-2 font-medium">User</span>
         </div>
-        <a href="/listings" class="px-6 py-2 hover:bg-gray-100 transition rounded">Listings</a>
-        <a href="/profile" class="px-6 py-2 hover:bg-gray-100 transition rounded">My Profile</a>
-        <button id="mobile-logout-btn" class="text-left px-6 py-2 text-red-600 hover:bg-gray-100 transition rounded">
-          Logout
-        </button>
+        <div class="flex flex-col items-end space-y-2 mt-2">
+          <a href="profile.html" class="flex self-end px-6 py-2 hover:bg-gray-100 transition rounded">My Profile</a>
+          <a href="/listings.html" class="px-6 py-2 hover:bg-gray-100 transition rounded">Listings</a>
+          <button id="mobile-logout-button" class="text-left px-6 py-2 text-gray-700 hover:bg-gray-100 transition rounded">
+            Log out
+          </button>
+        </div>
       </div>
     </div>
+    <script type="module" src="/src/js/components/header.js"></script>
   </header>
-
   <main class="flex-col justify-center items-center py-12">
-   
+    <div class="flex items-center mb-8">
+      <img src="./assets/images/profile.jpg" alt="Profile picture" class="w-16 h-16 rounded-full">
+      <div class="ml-4">
+        <h1 class="text-2xl font-bold">My Pet Listings</h1>
+        <p class="text-gray-600">Manage your pet listings here</p>
+      </div>
+    </div>
+    <div class="mb-8">
+      <button id="add-listing-btn" class="bg-[#362550] text-white px-6 py-3 rounded-md flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        Add New Listing
+      </button>
+    </div>
+    <div id="pet-listings" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Pet listing cards will be dynamically inserted here -->
+    </div>
   </main>
-
-  <!-- Footer -->
+  <div id="listing-modal" class="fixed inset-0 bg-black bg-opacity-30 items-center justify-center z-50 hidden">
+    <div class="bg-white w-full max-w-md p-6 rounded-lg relative">
+      <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <h2 class="text-2xl font-bold text-[#362550] mb-8 text-center">New Listing</h2>
+      <form class="pet-form" id="pet-form">
+        <input type="hidden" id="pet-id">
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <div>
+            <label for="pet-name" class="block text-gray-700 mb-2">Name:</label>
+            <input
+              type="text"
+              id="pet-name"
+              placeholder="e.g. Felix"
+              class="w-full p-2 border border-gray-200 rounded-md"
+              required
+            >
+          </div>
+          <div>
+            <label for="pet-breed" class="block text-gray-700 mb-2">Breed:</label>
+            <input
+              type="text"
+              id="pet-breed"
+              class="w-full p-2 border border-gray-200 rounded-md"
+              required
+            >
+          </div>
+          <div>
+            <label for="pet-age" class="block text-gray-700 mb-2">Age:</label>
+            <input
+              type="number"
+              id="pet-age"
+              class="w-full p-2 border border-gray-200 rounded-md"
+              required
+            >
+          </div>
+          <div>
+            <label for="pet-size" class="block text-gray-700 mb-2">Size:</label>
+            <input
+              type="text"
+              id="pet-size"
+              class="w-full p-2 border border-gray-200 rounded-md"
+              required
+            >
+          </div>
+        </div>
+        <div class="mb-6">
+          <label for="pet-description" class="block text-gray-700 mb-2">Description:</label>
+          <textarea
+            id="pet-description"
+            rows="5"
+            class="w-full p-2 border border-gray-200 rounded-md"
+            required
+          ></textarea>
+        </div>
+        <div class="mb-6">
+          <label for="pet-image-url" class="block text-sm font-medium text-gray-700">Image URL</label>
+          <input type="url" id="pet-image-url" name="pet-image-url" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" placeholder="https://...">
+        </div>        
+        <div id="image-previews" class="grid grid-cols-3 gap-4 mb-8">
+          <!-- Image previews will be dynamically inserted here -->
+        </div>
+        <div class="flex justify-center">
+          <button
+            type="submit"
+            class="bg-[#362550] text-white px-8 py-3 rounded-md w-full">
+            Publish
+          </button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+  </main>
   <footer class="bg-gray-900 text-white px-20 py-8">
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between">
-        <!-- Left Links -->
         <div class="space-y-4 mb-6 md:mb-0">
           <a href="/contact" class="block hover:text-gray-300">Contact us</a>
           <a href="/about" class="block hover:text-gray-300">About</a>
           <a href="/faq" class="block hover:text-gray-300">FAQ</a>
         </div>
-        
-        <!-- Social Media Links -->
         <div class="flex justify-center space-x-6 mb-6 md:mb-0">
           <a href="#" class="text-white hover:text-gray-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -121,8 +207,6 @@
             </svg>
           </a>
         </div>
-        
-        <!-- Right Links -->
         <div class="space-y-4">
           <a href="/privacy" class="block hover:text-gray-300">Privacy Policy</a>
           <a href="/terms" class="block hover:text-gray-300">Terms & Conditions</a>

@@ -7,35 +7,26 @@
   <link href="./src/style.css" rel="stylesheet">
 </head>
 <body class="bg-white min-h-screen">
-  <!-- Header/Navigation -->
   <header class="bg-white px-20 py-14 shadow-sm">
     <div class="container mx-auto flex justify-between items-center">
       <div class="flex items-center">
-        <!-- Logo -->
         <div class="flex items-center">
           <img src="assets/images/PetsomeLogo.png" width="381" height="160" alt="PETsome Logo" class="w-[381px] h-[160px]">
         </div>
       </div>
-      
-      <!-- Auth Buttons -->
       <div class="space-x-4">
         <a href="/account/login.html" class="inline-block px-6 py-2 bg-primary text-white rounded hover:underline transition">Login</a>
         <a href="/account/register.html" class="inline-block px-6 py-2 bg-primary text-white rounded hover:underline transition">Sign Up</a>
       </div>
     </div>
   </header>
-
-  <!-- Hero Section -->
   <section class="container mx-auto py-16 flex justify-center">
     <div class="flex auto">
       <img src="assets/images/Petsomecatdog.png" width="461" height="300" alt="Petsome Cat and dog">
     </div>
   </section>
-
-  <!-- Pet Listings Section -->
   <section class="bg-purple-100 py-10">
     <div class="container mx-auto">
-      <!-- Section Header -->
       <div class="flex justify-between items-center mb-8">
         <h2 class="border border-gray-400 px-4 py-2 text-lg font-medium">TOP LISTINGS</h2>
         <a href="/pets" class="inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded hover:underline transition">
@@ -45,10 +36,18 @@
           </svg>
         </a>
       </div>
-      
-      <!-- Pet Cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Pet Card 1 -->
+        <div id="pet-card" class="bg-white rounded-md overflow-hidden shadow-sm">
+          <h3 class="p-4 text-center font-medium">Lorem Ipsum...</h3>
+          <div class="h-48 bg-gray-200 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div class="p-4 flex justify-center">
+            <a href="#" class="px-6 py-2 bg-secondary text-white rounded hover:underline transition">View More</a>
+          </div>
+        </div>
         <div class="bg-white rounded-md overflow-hidden shadow-sm">
           <h3 class="p-4 text-center font-medium">Lorem Ipsum...</h3>
           <div class="h-48 bg-gray-200 flex items-center justify-center">
@@ -60,21 +59,6 @@
             <a href="#" class="px-6 py-2 bg-secondary text-white rounded hover:underline transition">View More</a>
           </div>
         </div>
-        
-        <!-- Pet Card 2 -->
-        <div class="bg-white rounded-md overflow-hidden shadow-sm">
-          <h3 class="p-4 text-center font-medium">Lorem Ipsum...</h3>
-          <div class="h-48 bg-gray-200 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <div class="p-4 flex justify-center">
-            <a href="#" class="px-6 py-2 bg-secondary text-white rounded hover:underline transition">View More</a>
-          </div>
-        </div>
-        
-        <!-- Pet Card 3 -->
         <div class="bg-white rounded-md overflow-hidden shadow-sm">
           <h3 class="p-4 text-center font-medium">Lorem Ipsum...</h3>
           <div class="h-48 bg-gray-200 flex items-center justify-center">
@@ -89,27 +73,20 @@
       </div>
     </div>
   </section>
-
-  <!-- Admin CTA Section -->
   <section class="container mx-auto py-8">
     <div class="flex justify-center items-center space-x-4">
       <h2 class="text-2xl font-semibold text-gray-800">Want to join as admin?</h2>
       <a href="/account/register" class="px-6 py-2 bg-secondary text-white rounded hover:underline transition">Sign Up</a>
     </div>
   </section>
-
-  <!-- Footer -->
   <footer class="bg-gray-900 text-white px-20 py-8">
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between">
-        <!-- Left Links -->
         <div class="space-y-4 mb-6 md:mb-0">
           <a href="/contact" class="block hover:text-gray-300">Contact us</a>
           <a href="/about" class="block hover:text-gray-300">About</a>
           <a href="/faq" class="block hover:text-gray-300">FAQ</a>
         </div>
-        
-        <!-- Social Media Links -->
         <div class="flex justify-center space-x-6 mb-6 md:mb-0">
           <a href="#" class="text-white hover:text-gray-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -127,8 +104,6 @@
             </svg>
           </a>
         </div>
-        
-        <!-- Right Links -->
         <div class="space-y-4">
           <a href="/privacy" class="block hover:text-gray-300">Privacy Policy</a>
           <a href="/terms" class="block hover:text-gray-300">Terms & Conditions</a>

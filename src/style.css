@@ -33,6 +33,15 @@ main {
   margin: 20px auto;
 }
 
+.material-symbols-outlined.icon-large {
+  font-size: 50px !important;
+}
+    
+.material-symbols-outlined.icon-medium {
+  font-size: 28px !important;
+}
+
+
 /* Custom button styles */
 .btn-primary {
   @apply px-6 py-2 text-white rounded transition;
