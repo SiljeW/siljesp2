@@ -1,0 +1,282 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #766EB2; /* Purple color from the design */
+  --color-primary-dark: #32193D; /* Darker purple for the cat silhouette & buttons */
+  --color-secondary: #B95539; /* Red-brown for the "View More" buttons */
+  --color-bg-light: #F3F4F6; /* Light background */
+  --color-text-dark: #1F2937; /* Dark text */
+}
+
+/* Base styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--color-text-dark);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+#login-submit-btn {
+  width: 150px;
+  margin: 20px auto;
+}
+
+.material-symbols-outlined.icon-large {
+  font-size: 50px !important;
+}
+    
+.material-symbols-outlined.icon-medium {
+  font-size: 28px !important;
+}
+
+
+/* Custom button styles */
+.btn-primary {
+  @apply px-6 py-2 text-white rounded transition;
+  background-color: var(--color-primary-dark);
+}
+
+.btn-primary:hover {
+  text-decoration: underline;
+  
+}
+
+.btn-secondary {
+  @apply px-6 py-2 bg-secondary text-white rounded hover:bg-secondary transition;
+}
+
+/* Logo styles */
+.logo-container {
+  @apply flex items-center;
+}
+
+.logo-image {
+  @apply w-16 h-16 bg-purple-400 rounded-full flex items-center justify-center;
+}
+
+.logo-text {
+  @apply ml-2;
+}
+
+.logo-text-primary {
+  @apply text-3xl font-bold text-purple-900;
+}
+
+.logo-text-secondary {
+  @apply text-2xl text-gray-500;
+}
+
+/* Pet card styles */
+.pet-card {
+  @apply bg-white rounded-md overflow-hidden shadow-sm transition duration-300;
+}
+
+.pet-card:hover {
+  @apply shadow-md transform -translate-y-1;
+}
+
+.pet-card-image {
+  @apply h-48 bg-gray-200 flex items-center justify-center overflow-hidden;
+}
+
+.pet-card-image img {
+  @apply w-full h-full object-cover;
+}
+
+.pet-card-content {
+  @apply p-4;
+}
+
+.pet-card-title {
+  @apply text-lg font-medium text-center;
+}
+
+.pet-card-action {
+  @apply p-4 flex justify-center;
+}
+
+/* Hero section styles */
+.hero-section {
+  @apply container mx-auto py-16 flex justify-center;
+}
+
+.animal-silhouettes {
+  @apply flex space-x-16;
+}
+
+/* Listings section */
+.listings-section {
+  @apply bg-purple-100 py-10;
+}
+
+.section-header {
+  @apply flex justify-between items-center mb-8;
+}
+
+.section-title {
+  @apply border border-gray-400 px-4 py-2 text-lg font-medium;
+}
+
+.see-all-link {
+  @apply inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800 transition;
+}
+
+.pet-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+/* Admin CTA section */
+.admin-cta {
+  @apply container mx-auto py-8 flex justify-center items-center space-x-4;
+}
+
+.admin-cta-text {
+  @apply text-2xl font-semibold text-gray-800;
+}
+
+/* Form styles */
+.form-control {
+  @apply w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+.form-group {
+  @apply mb-4;
+}
+
+.form-error {
+  @apply text-red-500 text-sm mt-1;
+}
+
+/* Pagination styles */
+.pagination {
+  @apply flex justify-center mt-8;
+}
+
+.pagination-item {
+  @apply px-3 py-1 border;
+}
+
+.pagination-item.active {
+  @apply bg-purple-600 text-white;
+}
+
+.pagination-item:not(.active) {
+  @apply bg-white text-purple-600 hover:bg-purple-50;
+}
+
+/* Footer styles */
+.footer {
+  @apply bg-gray-900 text-white py-8;
+  margin-top: auto;
+}
+
+.footer-links {
+  @apply space-y-4;
+}
+
+.footer-link {
+  @apply block hover:text-gray-300;
+}
+
+.social-links {
+  @apply flex justify-center space-x-6;
+}
+
+.social-link {
+  @apply text-white hover:text-gray-300;
+}
+
+/* Loading animation */
+.loading-spinner {
+  @apply animate-spin h-8 w-8 text-purple-600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .animal-silhouettes {
+    @apply space-x-8;
+  }
+  
+  .section-header {
+    @apply flex-col space-y-4 items-start;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Customize pet silhouette colors */
+.cat-silhouette {
+  fill: var(--color-primary-dark);
+}
+
+.dog-silhouette {
+  fill: var(--color-primary);
+}
+
+/* Custom pet card hover effects */
+.pet-card .btn-view {
+  transition: all 0.3s ease;
+}
+
+.pet-card:hover .btn-view {
+  background-color: #A25F4B; /* Slightly darker than the normal button */
+}
+
+/* Add placeholder image styling */
+.placeholder-image {
+  @apply flex items-center justify-center bg-gray-200 text-gray-400;
+}
+
+/* Form validation */
+.validation-error {
+  @apply text-red-500 text-sm mt-1;
+}
+
+input.invalid {
+  @apply border-red-500;
+}
+
+input.valid {
+  @apply border-green-500;
+}
+
+/* Utility classes for auth state */
+.auth-only {
+  @apply hidden;
+}
+
+.guest-only {
+  @apply block;
+}
+
+.auth-true .auth-only {
+  @apply block;
+}
+
+.auth-true .guest-only {
+  @apply hidden;
+}
