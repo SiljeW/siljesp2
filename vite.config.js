@@ -1,17 +1,16 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
 export default defineConfig({
   base: '/',
   build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
     rollupOptions: {
-      output: {
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'style.css') return 'assets/style.css';
-          return 'assets/[name]-[hash][extname]';
-        }
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        login: resolve(__dirname, 'public/account/login.html'),
+        register: resolve(__dirname, 'public/account/register.html'),
+        profile: resolve(__dirname, 'public/account/profile.html'),
       }
     }
   }
-})
+});

@@ -82,7 +82,7 @@ async function handleRegister(event) {
     storeUserData(userData);
     
     // Redirect to homepage
-    navigateTo = '/';
+    window.location.href = '/';
   } catch (error) {
     // Show error message
     showError(error.message || 'Registration failed. Please try again.');

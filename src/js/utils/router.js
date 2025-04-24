@@ -14,7 +14,7 @@ const routes = [
   },
   {
     path: '/pets',
-    module: () => import('../pages/home.js'), // Assuming the same as home for now
+    module: () => import('../pages/home.js'),
     requiresAuth: false
   },
   {
