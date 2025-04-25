@@ -18,6 +18,11 @@ const routes = [
     requiresAuth: false
   },
   {
+    path: '/account/pet-detail/:id',
+    module: () => import('../pages/petdetails.js'),
+    requiresAuth: false
+  },
+  {
     path: '/pets/',
     redirect: '/pets'
   },
@@ -59,38 +64,10 @@ const routes = [
   }
 ];
 
-// Adds more specific routes dynamically (for pet details, etc.)
-function addDynamicRoutes() {
-  // Pet details page
-  routes.push({
-    path: /^\/pets\/([a-zA-Z0-9-_]+)\/?$/,
-    module: () => import('../pages/petdetails.js'),
-    requiresAuth: false,
-    params: (path) => {
-      const match = path.match(/^\/pets\/([a-zA-Z0-9-_]+)\/?$/);
-      return match ? { id: match[1] } : {};
-    }
-  });
-  
-  // Pet edit page
-  routes.push({
-    path: /^\/pets\/([a-zA-Z0-9-_]+)\/edit\/?$/,
-    module: () => import('../pages/pet-edit.js'),
-    requiresAuth: true,
-    params: (path) => {
-      const match = path.match(/^\/pets\/([a-zA-Z0-9-_]+)\/edit\/?$/);
-      return match ? { id: match[1] } : {};
-    }
-  });
-}
-
 /**
  * Initialize the router
  */
 function init() {
-  // Add dynamic routes
-  addDynamicRoutes();
-  
   // Handle navigation
   window.addEventListener('popstate', handleRoute);
   
@@ -114,69 +91,146 @@ function init() {
 }
 
 /**
+ * Extract parameters from dynamic routes
+ * @param {string} routePath - Route path pattern
+ * @param {string} currentPath - Current URL path
+ * @returns {Object|null} - Object with parameters or null if no match
+ */
+function extractParams(routePath, currentPath) {
+  // Check if this is a dynamic route
+  if (!routePath.includes(':')) {
+    return null;
+  }
+  
+  // Convert route pattern to regex
+  const paramNames = [];
+  const regexPattern = routePath.replace(/:[^\/]+/g, (match) => {
+    paramNames.push(match.substring(1));
+    return '([^/]+)';
+  });
+  
+  // Create regex with start and end anchors
+  const regex = new RegExp(`^${regexPattern}$`);
+  const match = currentPath.match(regex);
+  
+  if (!match) {
+    return null;
+  }
+  
+  // Create params object from matches
+  const params = {};
+  paramNames.forEach((name, index) => {
+    params[name] = match[index + 1];
+  });
+  
+  return params;
+}
+
+/**
  * Handle the current route
  */
 async function handleRoute() {
   const path = window.location.pathname;
-
-  // Find matching route
-  let route = findRoute(path);
   
-  // Check auth requirements
-  if (route.requiresAuth && !isAuthenticated()) {
-    navigateTo('/account/login');
-    return;
-  }
+  // Find matching route and extract params
+  let matchedRoute = null;
+  let params = {};
   
-  if (route.requiresGuest && isAuthenticated()) {
-    navigateTo('/');
-    return;
-  }
+  // First try to find an exact match
+  matchedRoute = routes.find(route => route.path === path);
   
-  // Handle redirects
-  if (route.redirect) {
-    navigateTo(route.redirect);
-    return;
-  }
-  
-  // Render or load module
-  if (route.render) {
-    route.render();
-  } else if (route.module) {
-    try {
-      const params = route.params ? route.params(path) : {};
-      const module = await route.module();
-      
-      if (module && module.init) {
-        module.init(params);
+  // If no exact match, check for dynamic routes
+  if (!matchedRoute) {
+    for (const route of routes) {
+      // Skip non-string paths (e.g., regex or catch-all)
+      if (typeof route.path !== 'string' || route.path === '*') {
+        continue;
       }
-    } catch (error) {
-      console.error('Error loading module:', error);
-      navigateTo('/');
+      
+      // Check if it's a dynamic route
+      if (route.path.includes(':')) {
+        const extractedParams = extractParams(route.path, path);
+        if (extractedParams) {
+          matchedRoute = route;
+          params = extractedParams;
+          break;
+        }
+      }
     }
   }
-}
-
-/**
- * Find a matching route for the given path
- * @param {string} path - The current path
- * @returns {Object} - The matching route
- */
-function findRoute(path) {
-  // First check for exact matches
-  let route = routes.find(r => r.path === path);
   
-  // Then check for regex patterns
-  if (!route) {
-    route = routes.find(r => r.path instanceof RegExp && r.path.test(path));
+  // If still no match, try regex routes
+  if (!matchedRoute) {
+    const regexRoute = routes.find(r => r.path instanceof RegExp && r.path.test(path));
+    if (regexRoute) {
+      matchedRoute = regexRoute;
+      // Use the route's params function if available
+      if (regexRoute.params) {
+        params = regexRoute.params(path);
+      }
+    }
   }
   
   // Finally, fall back to the catch-all route
-  if (!route) {
-    route = routes.find(r => r.path === '*');
+  if (!matchedRoute) {
+    matchedRoute = routes.find(r => r.path === '*');
   }
   
-  return route;
+  // Handle the matched route
+  if (matchedRoute) {
+    // Check auth requirements
+    if (matchedRoute.requiresAuth && !isAuthenticated()) {
+      navigateTo('/account/login');
+      return;
+    }
+    
+    if (matchedRoute.requiresGuest && isAuthenticated()) {
+      navigateTo('/');
+      return;
+    }
+    
+    // Handle redirects
+    if (matchedRoute.redirect) {
+      navigateTo(matchedRoute.redirect);
+      return;
+    }
+    
+    // Load template if specified
+    if (matchedRoute.template) {
+      try {
+        const response = await fetch(matchedRoute.template);
+        if (response.ok) {
+          const html = await response.text();
+          document.getElementById('app').innerHTML = html;
+        }
+      } catch (error) {
+        console.error('Error loading template:', error);
+      }
+    }
+    
+    // Render or load module
+    if (matchedRoute.render) {
+      matchedRoute.render();
+    } else if (matchedRoute.module) {
+      try {
+        const module = await matchedRoute.module();
+        
+        if (module && module.init) {
+          // Pass extracted params to the module's init function
+          module.init(params);
+        }
+      } catch (error) {
+        console.error('Error loading module:', error);
+        // Display error message
+        document.getElementById('app').innerHTML = `
+          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative my-4 max-w-xl mx-auto">
+            <strong class="font-bold">Error!</strong>
+            <span class="block sm:inline"> Failed to load page module.</span>
+          </div>
+        `;
+      }
+    }
+  }
 }
 
 /**

@@ -9,7 +9,7 @@ import { getToken, getApiKey } from '../api/auth';
 
 export async function authFetch(url, options = {}) {
   // Get authentication token
-  const token = localStorage.getItem('token');
+  const token = getToken();
   const apiKey = getApiKey();
   
   console.log('Using token (first 10 chars):', token?.substring(0, 10));
@@ -27,7 +27,7 @@ export async function authFetch(url, options = {}) {
   
   // Add API key if available
   if (apiKey) {
-    headers['X-Noroff-API-Key'] = apiKey;
+    headers['X-Noroff-API-Key'] = 'e583ca24-599b-41fb-abd1-48f70926a985';
   }
   
   try {

@@ -1,4 +1,4 @@
-import { getPet } from "../utils/pets/index";
+import { getPetById } from "../utils/pets/index";
 import { getAllPets } from "../utils/pets/index";
 export function setGetPetFormListener() {
     const form = document.getElementById('pet-card');
@@ -10,7 +10,7 @@ export function setGetPetFormListener() {
             const formData = new FormData(form);
             const pet = Object.fromEntries(formData.entries())
     
-            getPet(pet)
+            getPetById(pet)
         })
     }
 }

@@ -3,7 +3,7 @@
  * Allows admins to edit or delete a pet
  */
 
-import { getPetById, updatePet, deletePet } from '../api/pets.js.bak';
+import { getPetById, updatePet, deletePet } from '../utils/pets/index.js';
 import { isAuthenticated } from '../api/auth.js';
 import { navigateTo } from '../utils/router.js';
 

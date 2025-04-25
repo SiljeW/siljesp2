@@ -20,6 +20,8 @@ let closeModalBtn;
 const API_BASE_URL = 'https://v2.api.noroff.dev';
 const PETS_ENDPOINT = `${API_BASE_URL}/pets`;
 
+const NOROFF_API_KEY = 'e583ca24-599b-41fb-abd1-48f70926a985'
+
 
 /**
  * Initialize the profile page
@@ -104,11 +106,8 @@ function init() {
       console.log('Sending pet data:', payload);
   
       try {
-        const response = await fetch('https://v2.api.noroff.dev/pets', {
+        const response = await authFetch('https://v2.api.noroff.dev/pets', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
           body: JSON.stringify(payload)
         });
   
@@ -185,7 +184,7 @@ function init() {
     try {
       const userData = getCurrentUser();
       if (userData && userData.id) {
-        const petsData = await getPets({
+        const petsData = await getAllPets({
           query: userData.id
         });
         renderUserPets(petsData.data || [], profilePetListingsContainer);
@@ -268,7 +267,7 @@ async function loadUserPets() {
     
     // Use the imported handler to get all pets
     setGetAllPetsFormListener(async () => {
-      const petsData = await getPets({
+      const petsData = await getAllPets({
         query: user.id
       });
       renderUserPets(petsData.data || [], petListingsContainer);
@@ -364,11 +363,11 @@ function createPetCard(pet) {
   </div>
     
     <div class="p-4 flex justify-center">
-      <a href="/pets/${pet.id}" class="bg-[#B06A4E] text-white px-6 py-2 rounded-md hover:bg-[#9d5b42] transition">View</a>
+      <button data-id="${pet.id}" class="view-pet-btn bg-[#B06A4E] text-white px-6 py-2 rounded-md hover:bg-[#9d5b42] transition">View</button>
     </div>
   `;
   
-  // Add event listeners for the edit and delete buttons
+  // Add event listeners for the buttons
   const editBtn = card.querySelector('.edit-btn');
   if (editBtn) {
     editBtn.addEventListener('click', () => {
@@ -387,6 +386,16 @@ function createPetCard(pet) {
     deleteBtn.addEventListener('click', () => {
       const petId = deleteBtn.getAttribute('data-id');
       handlePetDelete(petId);
+    });
+  }
+  
+  // Add event listener for the view button (instead of an anchor)
+  const viewBtn = card.querySelector('.view-pet-btn');
+  if (viewBtn) {
+    viewBtn.addEventListener('click', () => {
+      const petId = viewBtn.getAttribute('data-id');
+      // Import the navigateTo function directly from the module to ensure consistency
+      navigateTo(`/account/pet-detail/${petId}`);
     });
   }
   

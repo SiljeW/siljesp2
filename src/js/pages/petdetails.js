@@ -3,7 +3,7 @@
  * Displays detailed information about a specific pet
  */
 
-import { getPetById } from '../api/pets.js.bak';
+import { getPetById } from '../utils/pets/read.js';
 import { isAuthenticated } from '../api/auth.js';
 import { navigateTo } from '../utils/router.js';
 

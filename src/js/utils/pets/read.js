@@ -1,13 +1,14 @@
 import { API_BASE_URL, API_PETS_URL } from "../constants";
 import { authFetch } from "../authFetch";
 
+
 /**
- * Get all pets with optional filtering
- * @param {Object} options - Query options
- * @returns {Promise<Object>} - Pets data
+ * Get a single pet by ID
+ * @param {string} id - Pet ID
+ * @returns {Promise<Object>} - Response data
  */
 
-export async function getPet(id) {
+export async function getPetById(id) {
     if(!id) {
         throw new Error('Get requires a postID');
     }
@@ -23,8 +24,14 @@ export async function getPet(id) {
     
     const response = await authFetch(getPetURL)
 
-    const post = await getPet();
+    const post = await getPetById();
 }
+
+/**
+ * Get all pets with optional filtering
+ * @param {Object} options - Query options
+ * @returns {Promise<Object>} - Pets data
+ */
 
 
 export async function getAllPets() {
