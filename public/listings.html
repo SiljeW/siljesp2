@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PETsome - Find Your Perfect Pet</title>
+  <title>PETsome - All Pets</title>
   <link href="./src/style.css" rel="stylesheet">
-  <script type="module" src="./src/main.js"></script>
+  <script type="module" src="./js/pages/listings.mjs"></script>
 </head>
 <body class="bg-white min-h-screen">
   <header class="bg-white px-20 py-14 shadow-sm">
@@ -21,57 +21,77 @@
       </div>
     </div>
   </header>
-  <section class="container mx-auto py-16 flex justify-center">
-    <div class="flex auto">
-      <img src="assets/images/Petsomecatdog.png" width="461" height="300" alt="Petsome Cat and dog">
+  <div class="container mx-auto px-4 mt-4">
+    <a href="/index.html" class="text-gray-700 inline-flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+      Back to Home Page
+    </a>
+  </div>
+  <main class="container mx-auto py-8 px-4">
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-2xl font-bold">All Available Pets</h1>
     </div>
-  </section>
-  <section class="bg-purple-100 py-10">
-    <div class="container mx-auto">
-      <div class="flex justify-between items-center mb-8">
-        <h2 class="border border-gray-400 px-4 py-2 text-lg font-medium">TOP LISTINGS</h2>
-        <a href="listings.html" class="inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded hover:underline transition">
-          See all listings
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </a>
-      </div>
-      <div id="pet-listings" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div id="pet-card" class="bg-white rounded-md overflow-hidden shadow-sm">
-          
+    
+    <!-- Search and filter section -->
+    <div class="mb-8 bg-gray-100 p-4 rounded-lg">
+      <form id="search-form" class="flex flex-wrap gap-4">
+        <div class="flex-grow">
+          <input type="text" id="search-input" class="w-full px-4 py-2 border rounded" placeholder="Search pets...">
         </div>
-        <div class="bg-white rounded-md overflow-hidden shadow-sm">
-          <h3 class="p-4 text-center font-medium">Lorem Ipsum...</h3>
-          <div class="h-48 bg-gray-200 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <div class="p-4 flex justify-center">
-            <a href="#" class="px-6 py-2 bg-secondary text-white rounded hover:underline transition">View More</a>
-          </div>
+        <div>
+          <select id="sort-select" class="px-4 py-2 border rounded">
+            <option value="created_desc">Newest first</option>
+            <option value="created_asc">Oldest first</option>
+            <option value="name_asc">Name A-Z</option>
+            <option value="name_desc">Name Z-A</option>
+          </select>
         </div>
-        <div class="bg-white rounded-md overflow-hidden shadow-sm">
-          <h3 class="p-4 text-center font-medium">Lorem Ipsum...</h3>
-          <div class="h-48 bg-gray-200 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <div class="p-4 flex justify-center">
-            <a href="#" class="px-6 py-2 bg-secondary text-white rounded hover:underline transition">View More</a>
-          </div>
+        <button type="submit" class="px-4 py-2 bg-secondary text-white rounded">Search</button>
+      </form>
+      
+      <!-- Filter buttons (optional) -->
+      <div class="mt-4 flex flex-wrap gap-2">
+        <span class="text-sm text-gray-700">Filter by:</span>
+        <div class="space-x-2" data-filter-group="petType">
+          <button data-filter="all" data-filter-group="petType" class="px-3 py-1 bg-purple-600 text-white rounded text-sm">All</button>
+          <button data-filter="dog" data-filter-group="petType" class="px-3 py-1 bg-white text-gray-700 rounded text-sm">Dogs</button>
+          <button data-filter="cat" data-filter-group="petType" class="px-3 py-1 bg-white text-gray-700 rounded text-sm">Cats</button>
+          <button data-filter="other" data-filter-group="petType" class="px-3 py-1 bg-white text-gray-700 rounded text-sm">Other</button>
         </div>
       </div>
     </div>
-  </section>
-  <section class="container mx-auto py-8">
-    <div class="flex justify-center items-center space-x-4">
-      <h2 class="text-2xl font-semibold text-gray-800">Want to join as admin?</h2>
-      <a href="/account/register" class="px-6 py-2 bg-secondary text-white rounded hover:underline transition">Sign Up</a>
+    
+    <div class="mb-4">
+      <span id="result-count" class="text-gray-600">Searching for pets...</span>
     </div>
-  </section>
+    
+    <!-- Pet listings container -->
+    <div id="pet-listings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Pet cards will be loaded here by JavaScript -->
+      <div class="animate-pulse bg-white rounded-md p-4">
+        <div class="h-48 bg-gray-200 rounded mb-4"></div>
+        <div class="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
+        <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+        <div class="h-10 bg-gray-200 rounded w-1/3 mx-auto"></div>
+      </div>
+      <div class="animate-pulse bg-white rounded-md p-4">
+        <div class="h-48 bg-gray-200 rounded mb-4"></div>
+        <div class="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
+        <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+        <div class="h-10 bg-gray-200 rounded w-1/3 mx-auto"></div>
+      </div>
+      <div class="animate-pulse bg-white rounded-md p-4">
+        <div class="h-48 bg-gray-200 rounded mb-4"></div>
+        <div class="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
+        <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+        <div class="h-10 bg-gray-200 rounded w-1/3 mx-auto"></div>
+      </div>
+    </div>
+    
+    <!-- Pagination will be added here by JavaScript -->
+  </main>
   <footer class="bg-gray-900 text-white px-20 py-8">
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between">

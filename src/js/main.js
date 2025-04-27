@@ -3,8 +3,8 @@
  * Initializes the app and handles global state
  */
 
-import { init as initRouter } from './utils/router.js';
-import { isAuthenticated, getCurrentUser } from './api/auth.js';
+import { init as initRouter } from './utils/router.mjs';
+import { isAuthenticated, getCurrentUser } from './api/auth.mjs';
 
 /**
  * Initialize the application
@@ -71,7 +71,7 @@ function initGlobalEvents() {
   if (logoutButton) {
     logoutButton.addEventListener('click', (e) => {
       e.preventDefault();
-      import('./api/auth.js').then(({ logout }) => {
+      import('./api/auth.mjs').then(({ logout }) => {
         logout();
         window.location.href = '/';
       });

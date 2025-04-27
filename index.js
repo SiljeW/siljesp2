@@ -7,8 +7,8 @@
 import './style.css';
 
 // Import components and utilities
-import './js/components/header.js';
-import './js/components/footer.js';
+import './src/js/components/header.mjs';
+import './src/js/components/footer.js';
 import { init as initRouter } from './js/utils/router.js';
 
 /**

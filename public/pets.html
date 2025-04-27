@@ -5,25 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PETsome - Pet Details</title>
   <link rel="stylesheet" href="/src/style.css">
+  <script type="module" src="./js/pages/pet-details.mjs"></script>
 </head>
 <body class="min-h-screen flex flex-col bg-white">
-  <header class="bg-white p-4 flex justify-between items-center">
-    <div class="flex items-center">
-      <img src="./assets/images/PetsomeLogo.png" alt="PETsome Logo" class="w-[60px] h-[60px] rounded-full">
-      <span class="ml-2 font-bold text-[#362550]">PETsome</span>
+  <header class="bg-white px-20 py-14 shadow-sm">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <div class="flex items-center">
+          <img src="assets/images/PetsomeLogo.png" width="381" height="160" alt="PETsome Logo" class="w-[381px] h-[160px]">
+        </div>
+      </div>
+      <div class="space-x-4 auth-buttons">
+        <a href="/account/login.html" class="inline-block px-6 py-2 bg-primary text-white rounded hover:underline transition">Login</a>
+        <a href="/account/register.html" class="inline-block px-6 py-2 bg-primary text-white rounded hover:underline transition">Sign Up</a>
+      </div>
+      <div id="user-menu" class="hidden space-x-4">
+        <span id="user-name" class="text-gray-700">User</span>
+        <button id="logout-button" class="inline-block px-6 py-2 bg-primary text-white rounded hover:underline transition">Logout</button>
+      </div>
     </div>
-    <button class="text-gray-700">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-      </svg>
-    </button>
   </header>
   <div class="container mx-auto px-4 mt-4">
-    <a href="profile.html" class="text-gray-700 inline-flex items-center">
+    <a href="/index.html" class="text-gray-700 inline-flex items-center">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
       </svg>
-      Back to My Listings
+      Back to Home Page
     </a>
   </div>
   <main class="container mx-auto px-4 flex-1">
@@ -127,6 +134,5 @@
       </svg>
     </a>
   </div>
-  <script type="module" src="js/pages/pet-details.js"></script>
 </body>
 </html>
