@@ -3,7 +3,7 @@
  * Manages the site header/navigation
  */
 
-import { isAuthenticated, getCurrentUser, logout } from '../api/auth.js';
+import { isAuthenticated, getCurrentUser, logout } from '../api/auth.mjs';
 import { navigateTo } from '../utils/router.mjs';
 
 /**

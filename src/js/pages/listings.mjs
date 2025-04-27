@@ -3,8 +3,8 @@
  * Handles displaying all pets with search and filtering functionality
  */
 
-import { isAuthenticated } from '/js/api/auth.mjs';
-import { getAllPets, searchPets } from '/js//api/pets.mjs';
+import { isAuthenticated } from '../api/auth.mjs';
+import { getAllPets, searchPets } from '../api/pets.mjs';
 
 // DOM elements
 let petListingsContainer;

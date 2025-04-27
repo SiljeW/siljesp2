@@ -18,7 +18,7 @@ const AUTH_ENDPOINTS = {
  * Get the Noroff API key from storage
  * @returns {string|null} The API key or null if not found
  */
-function getApiKey() {
+export function getApiKey() {
   return localStorage.getItem('noroffApiKey');
 }
 

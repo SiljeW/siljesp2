@@ -3,7 +3,7 @@
  * Handles functionality related to the site footer
  */
 
-import { isAuthenticated } from '../api/auth.js';
+import { isAuthenticated } from '../api/auth.mjs';
 
 /**
  * Initialize the footer component

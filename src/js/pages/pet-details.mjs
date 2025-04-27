@@ -3,8 +3,8 @@
  * Handles fetching and displaying detailed information about a single pet
  */
 
-import { isAuthenticated } from '/js/api/auth.mjs';
-import { getPetById } from '/js/api/pets.mjs';
+import { isAuthenticated } from '../api/auth.mjs';
+import { getPetById } from '../api/pets.mjs';
 
 // DOM elements
 let petDetailsContainer;
