@@ -1,3 +1,3 @@
-export * from "./createPet"
-export * from "./readPet"
-export * from "./updatePet"
+export * from "./createPet.mjs"
+export * from "./readPet.mjs"
+export * from "./updatePet.mjs"
