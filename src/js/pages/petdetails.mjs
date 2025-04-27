@@ -3,8 +3,8 @@
  * Displays detailed information about a specific pet
  */
 
-import { getPetById } from '/js/utils/pets/read.mjs';
-import { isAuthenticated } from '/js/api/auth.mjs';
+import { getPetById } from '../api/pets.mjs';
+import { isAuthenticated } from '../api/auth.mjs';
 
 
 /**
