@@ -3,9 +3,9 @@
  * Manages the login form functionality
  */
 
-import '../../components/footer.mjs'
-import '../../components/header.mjs'
-import '../../../style.css'
+import '../../components/footer.mjs';
+import '../../components/header.mjs';
+import '../../../style.css';
 
 import { login, storeUserData } from '../../api/auth.mjs';
 import { validateEmail, validateRequired } from '../../utils/validation.mjs';
