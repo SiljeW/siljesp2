@@ -3,9 +3,10 @@
  * Handles fetching and displaying detailed information about a single pet
  */
 
-import '../../components/footer.mjs'
-import '../../components/header.mjs'
-import '../../../style.css'
+// Import shared components and styles with correct paths
+import '../../components/header.mjs';
+import '../../components/footer.mjs';
+import '../../../style.css';
 
 import { isAuthenticated } from '../api/auth.mjs';
 import { getPetById } from '../api/pets.mjs';
@@ -54,16 +55,31 @@ function updateAuthDependentUI() {
     if (isLoggedIn) {
       adoptButton.textContent = 'Contact About Adoption';
       adoptButton.classList.remove('hidden');
+      
+      // Remove any existing click listeners and add the adoption contact handler
+      adoptButton.replaceWith(adoptButton.cloneNode(true));
+      adoptButton = document.getElementById('adopt-button');
+      adoptButton.addEventListener('click', handleAdoptionContact);
     } else {
       adoptButton.textContent = 'Login to Adopt';
       adoptButton.classList.remove('hidden');
       
-      // Add click event to redirect to login if not authenticated
+      // Remove any existing click listeners and add login redirect
+      adoptButton.replaceWith(adoptButton.cloneNode(true));
+      adoptButton = document.getElementById('adopt-button');
       adoptButton.addEventListener('click', () => {
         window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.href);
       });
     }
   }
+}
+
+/**
+ * Handle adoption contact for authenticated users
+ */
+function handleAdoptionContact() {
+  // You can implement this to open a contact form, email, or phone call
+  alert('Contact functionality coming soon! Please call us at (555) 123-4567 or email adopt@petsome.com');
 }
 
 /**
@@ -86,6 +102,9 @@ async function loadPetDetails(petId) {
   } catch (error) {
     console.error('Failed to load pet details:', error);
     showError('Failed to load pet details. Please try again later.');
+    
+    // For development, show mock data if API fails
+    renderMockPetDetails(petId);
   }
 }
 
@@ -109,6 +128,9 @@ function renderPetDetails(pet) {
       </div>`
     : '';
   
+  // Format additional details
+  const detailsHtml = createDetailsSection(pet);
+  
   // Format pet details
   petDetailsContainer.innerHTML = `
     <div class="mb-6">
@@ -120,8 +142,8 @@ function renderPetDetails(pet) {
       </a>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="bg-gray-100 rounded-lg overflow-hidden h-80">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="bg-gray-100 rounded-lg overflow-hidden h-80 lg:h-96">
         ${imageUrl 
           ? `<img src="${imageUrl}" alt="${pet.name}" class="w-full h-full object-cover">`
           : `<div class="w-full h-full flex items-center justify-center bg-gray-200">
@@ -147,6 +169,8 @@ function renderPetDetails(pet) {
           <p class="text-gray-700">${pet.description || 'No description available for this pet.'}</p>
         </div>
         
+        ${detailsHtml}
+        
         <button id="adopt-button" class="w-full py-3 bg-secondary text-white font-semibold rounded-lg hover:bg-opacity-90 transition">
           Login to Adopt
         </button>
@@ -163,6 +187,60 @@ function renderPetDetails(pet) {
   // Get adopt button and update its state
   adoptButton = document.getElementById('adopt-button');
   updateAuthDependentUI();
+}
+
+/**
+ * Create additional details section
+ * @param {Object} pet - Pet data
+ * @returns {string} HTML for details section
+ */
+function createDetailsSection(pet) {
+  const details = [];
+  
+  if (pet.size) details.push({ label: 'Size', value: pet.size });
+  if (pet.gender) details.push({ label: 'Gender', value: pet.gender });
+  if (pet.color) details.push({ label: 'Color', value: pet.color });
+  if (pet.vaccinated !== undefined) details.push({ label: 'Vaccinated', value: pet.vaccinated ? 'Yes' : 'No' });
+  if (pet.spayed !== undefined) details.push({ label: 'Spayed/Neutered', value: pet.spayed ? 'Yes' : 'No' });
+  
+  if (details.length === 0) return '';
+  
+  return `
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold mb-3">Details</h2>
+      <div class="grid grid-cols-2 gap-3">
+        ${details.map(detail => `
+          <div class="bg-gray-50 p-3 rounded">
+            <div class="text-sm text-gray-600">${detail.label}</div>
+            <div class="font-medium">${detail.value}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * Render mock pet details for development/testing
+ * @param {string|number} petId - The pet ID
+ */
+function renderMockPetDetails(petId) {
+  const mockPet = {
+    id: petId,
+    name: 'Buddy',
+    breed: 'Golden Retriever',
+    age: 3,
+    size: 'Large',
+    gender: 'Male',
+    color: 'Golden',
+    vaccinated: true,
+    spayed: true,
+    description: 'Buddy is a friendly and energetic dog who loves to play fetch and go on long walks. He gets along well with children and other pets.',
+    tags: ['Friendly', 'Good with kids', 'Trained'],
+    created: new Date().toISOString()
+  };
+  
+  renderPetDetails(mockPet);
 }
 
 /**
@@ -201,3 +279,6 @@ function showError(message) {
 
 // Initialize the page when DOM is loaded
 document.addEventListener('DOMContentLoaded', init);
+
+// Export for manual initialization if needed
+export { init };
