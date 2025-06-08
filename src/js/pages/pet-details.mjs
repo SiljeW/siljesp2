@@ -3,6 +3,10 @@
  * Handles fetching and displaying detailed information about a single pet
  */
 
+import '../../components/footer.mjs'
+import '../../components/header.mjs'
+import '../../../style.css'
+
 import { isAuthenticated } from '../api/auth.mjs';
 import { getPetById } from '../api/pets.mjs';
 

@@ -1,87 +1,15 @@
 /**
- * Home page handler
- * Manages the homepage and pet listings
+ * Home page functionality
+ * Manages pet listings and search on the homepage
  */
+
+import '../../components/footer.mjs'
+import '../../components/header.mjs'
+import '../../../style.css'
 
 import { isAuthenticated } from '../api/auth.mjs';
 
-/**
- * Go to a specific page
- * @param {number} page - Page number
- */
-function goToPage(page) {
-  state.currentPage = page;
-  loadPets();
-  
-  // Scroll to top of listings
-  if (petListingsContainer) {
-    petListingsContainer.scrollIntoView({ behavior: 'smooth' });
-  }
-}
-
-/**
- * Handle search form submission
- * @param {Event} event - Form submit event
- */
-function handleSearch(event) {
-  event.preventDefault();
-  
-  if (!searchInput) return;
-  
-  state.searchQuery = searchInput.value.trim();
-  state.currentPage = 1; // Reset to first page
-  loadPets();
-}
-
-/**
- * Clear search and reset listings
- */
-function clearSearch() {
-  if (searchInput) {
-    searchInput.value = '';
-  }
-  
-  state.searchQuery = '';
-  state.currentPage = 1;
-  loadPets();
-}
-
-/**
- * Show loading state
- */
-function showLoadingState() {
-  if (!petListingsContainer) return;
-  
-  petListingsContainer.innerHTML = `
-    <div class="flex justify-center items-center py-12 w-full">
-      <svg class="animate-spin h-8 w-8 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-      </svg>
-    </div>
-  `;
-}
-
-/**
- * Show error message
- * @param {string} message - Error message
- */
-function showError(message) {
-  if (!petListingsContainer) return;
-  
-  petListingsContainer.innerHTML = `
-    <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded relative my-4 w-full" role="alert">
-      <span class="block sm:inline">${message}</span>
-    </div>
-  `;
-}
-
-// Export functions
-export {
-  init
-};
-
-// DOM elements - declare as let since we'll assign them later
+// DOM elements
 let petListingsContainer;
 let searchInput;
 let searchForm;
@@ -105,10 +33,10 @@ const state = {
 function init() {
   console.log('Home page: initializing...');
   
-  // Get DOM elements - first try the correct ID, then try alternative
+  // Get DOM elements
   petListingsContainer = document.getElementById('pet-listings');
   
-  // If not found, try the ID used in your current HTML
+  // If not found, try alternative IDs
   if (!petListingsContainer) {
     petListingsContainer = document.getElementById('pet-card');
     console.log('Using pet-card as container');
@@ -201,8 +129,75 @@ async function loadPets() {
 }
 
 /**
+ * Handle search form submission
+ */
+function handleSearch(event) {
+  event.preventDefault();
+  
+  if (!searchInput) return;
+  
+  state.searchQuery = searchInput.value.trim();
+  state.currentPage = 1; // Reset to first page
+  loadPets();
+}
+
+/**
+ * Clear search and reset listings
+ */
+function clearSearch() {
+  if (searchInput) {
+    searchInput.value = '';
+  }
+  
+  state.searchQuery = '';
+  state.currentPage = 1;
+  loadPets();
+}
+
+/**
+ * Go to a specific page
+ */
+function goToPage(page) {
+  state.currentPage = page;
+  loadPets();
+  
+  // Scroll to top of listings
+  if (petListingsContainer) {
+    petListingsContainer.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+/**
+ * Show loading state
+ */
+function showLoadingState() {
+  if (!petListingsContainer) return;
+  
+  petListingsContainer.innerHTML = `
+    <div class="flex justify-center items-center py-12 w-full">
+      <svg class="animate-spin h-8 w-8 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+    </div>
+  `;
+}
+
+/**
+ * Show error message
+ */
+function showError(message) {
+  if (!petListingsContainer) return;
+  
+  petListingsContainer.innerHTML = `
+    <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded relative my-4 w-full" role="alert">
+      <span class="block sm:inline">${message}</span>
+    </div>
+  `;
+}
+
+/**
  * Render pets to the page
- * @param {Array} pets - Array of pet objects
  */
 function renderPets(pets) {
   if (!petListingsContainer) {
@@ -255,9 +250,45 @@ function renderPets(pets) {
     });
     
     // Add grid to container
-    petListingsContainer.innerHTML = ''; // Clear any existing content
     petListingsContainer.appendChild(petsGrid);
   }
+}
+
+/**
+ * Create a card element for a pet
+ */
+function createPetCard(pet) {
+  console.log('Creating card for pet:', pet.name);
+  
+  const card = document.createElement('div');
+  card.className = 'bg-white rounded-md shadow-sm overflow-hidden';
+  card.dataset.petId = pet.id;
+  
+  // Get pet image or use placeholder
+  const imageUrl = pet.image?.url || '';
+  
+  card.innerHTML = `
+    <div class="h-48 bg-gray-200 flex items-center justify-center">
+      ${imageUrl ? `
+        <img src="${imageUrl}" alt="${pet.name}" class="w-full h-full object-cover">
+      ` : `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      `}
+    </div>
+    <div class="p-4">
+      <h3 class="text-lg font-semibold text-gray-800">${pet.name || 'Unnamed Pet'}</h3>
+      <p class="text-sm text-gray-600 mt-1">${pet.breed || 'Unknown breed'}</p>
+      <p class="text-sm text-gray-600">${pet.age ? `${pet.age} years old` : 'Age unknown'}</p>
+      
+      <div class="mt-4 flex justify-center">
+        <a href="/pets.html?id=${pet.id}" class="px-6 py-2 bg-secondary text-white rounded hover:underline transition">View More</a>
+      </div>
+    </div>
+  `;
+  
+  return card;
 }
 
 /**
@@ -291,47 +322,6 @@ function renderMockPets() {
   ];
   
   renderPets(mockPets);
-}
-
-/**
- * Create a card element for a pet
- * @param {Object} pet - Pet data
- * @returns {HTMLElement} - Pet card element
- */
-function createPetCard(pet) {
-  console.log('Creating card for pet:', pet.name);
-  
-  const card = document.createElement('div');
-  card.className = 'bg-white rounded-md shadow-sm overflow-hidden';
-  card.dataset.petId = pet.id;
-  
-  // Get pet image or use placeholder
-  const imageUrl = pet.image?.url || '';
-  
-  card.innerHTML = `
-    <div class="bg-white rounded-md overflow-hidden shadow-sm">
-      <div class="h-48 bg-gray-200 flex items-center justify-center">
-        ${imageUrl ? `
-          <img src="${imageUrl}" alt="${pet.name}" class="w-full h-full object-cover">
-        ` : `
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-        `}
-      </div>
-    </div>
-    <div class="p-4">
-      <h3 class="text-lg font-semibold text-gray-800">${pet.name || 'Unnamed Pet'}</h3>
-      <p class="text-sm text-gray-600 mt-1">${pet.breed || 'Unknown breed'}</p>
-      <p class="text-sm text-gray-600">${pet.age ? `${pet.age} years old` : 'Age unknown'}</p>
-      
-      <div class="mt-4 flex justify-center">
-        <a href="/pets.html?id=${pet.id}" class="px-6 py-2 bg-secondary text-white rounded hover:underline transition">View More</a>
-      </div>
-    </div>
-  `;
-  
-  return card;
 }
 
 /**
@@ -396,3 +386,5 @@ function renderPagination() {
   petListingsContainer.insertAdjacentElement('afterend', paginationContainer);
 }
 
+// Export the init function
+export { init };

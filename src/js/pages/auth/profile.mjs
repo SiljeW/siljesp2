@@ -4,6 +4,10 @@ import { setGetPetFormListener, setGetAllPetsFormListener, setUpdatePetFormListe
 import { authFetch } from '../../utils/authFetch.mjs';
 import { load } from '../../utils/storage.mjs';
 
+import '../../components/footer.mjs'
+import '../../components/header.mjs'
+import '../../../style.css'
+
 // DOM elements for user profile
 let profileContent;
 let profileName;

@@ -11,7 +11,7 @@ import { isAuthenticated, getCurrentUser } from './api/auth.mjs';
  */
 function init() {
   // Initialize router
-  initRouter();
+  //initRouter();
   
   // Update UI based on authentication state
   updateAuthUI();

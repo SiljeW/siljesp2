@@ -1,32 +1,36 @@
-import './style.css'
-import { init as initRouter } from './js/utils/router.mjs';
+/**
+ * Main entry point for index.html (Home page)
+ * This file should only handle the home page, not all pages
+ */
+
+// Import shared styles
+import './style.css';
+
+// Import shared components
+import './js/components/header.mjs';
+import './js/components/footer.mjs';
+
+// Import home page functionality
+import { init as initHomePage } from './js/pages/home.mjs';
 import { isAuthenticated, getCurrentUser } from './js/api/auth.mjs';
 
 /**
- * Initialize the application
+ * Initialize the home page only
  */
 function init() {
-  console.log('Initializing PETsome application...');
-  
-  // Initialize router
-  initRouter();
+  console.log('Initializing home page...');
   
   // Update UI based on authentication state
   updateAuthUI();
   
-  // Initialize page-specific content based on current path
-  initCurrentPage();
+  // Initialize home page functionality
+  initHomePage();
   
-  // Initialize any global event listeners
+  // Initialize global event listeners for this page
   initGlobalEvents();
   
-  console.log('PETsome application initialized');
+  console.log('Home page initialized');
 }
-
-/**
- * Initialize the current page based on URL path
- */
-
 
 /**
  * Update UI elements based on authentication state
@@ -58,8 +62,6 @@ function updateAuthUI() {
       authButtons.classList.remove('hidden');
       userMenu.classList.add('hidden');
     }
-  } else {
-    console.log('Auth UI elements not found in current page');
   }
   
   // Show/hide admin-only elements
@@ -84,7 +86,7 @@ function updateAuthUI() {
 }
 
 /**
- * Initialize global event listeners
+ * Initialize event listeners for the home page
  */
 function initGlobalEvents() {
   // Handle logout button click
@@ -94,7 +96,8 @@ function initGlobalEvents() {
       e.preventDefault();
       console.log('Logout button clicked');
       
-      import('../src/js/pages/home.mjs').then(({ logout }) => {
+      // Import logout function and handle logout
+      import('./js/api/auth.mjs').then(({ logout }) => {
         logout();
         console.log('User logged out successfully');
         
@@ -109,25 +112,17 @@ function initGlobalEvents() {
     });
   }
   
-  // Global error handler to catch script errors
+  // Global error handler
   window.addEventListener('error', (event) => {
-    console.error('Global error:', event.error);
-  });
-  
-  // Listen for auth change events if you implement them
-  document.addEventListener('auth:changed', () => {
-    console.log('Auth state changed, updating UI');
-    updateAuthUI();
+    console.error('Page error:', event.error);
   });
 }
 
-// Initialize the app when the DOM is loaded
+// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM fully loaded, initializing app');
+  console.log('DOM loaded, initializing home page');
   init();
 });
 
-// Export functions for use in other files
-export {
-  updateAuthUI
-};
+// Export for other modules if needed
+export { updateAuthUI };

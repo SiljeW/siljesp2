@@ -3,6 +3,10 @@
  * Allows admins to edit or delete a pet
  */
 
+import '../../components/footer.mjs'
+import '../../components/header.mjs'
+import '../../../style.css'
+
 import { getPetById, updatePet, deletePet } from '/js/utils/pets/index.mjs';
 import { isAuthenticated } from '/js/api/auth.js';
 import { navigateTo } from '/js/utils/router.js';

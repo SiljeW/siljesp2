@@ -3,9 +3,13 @@
  * Manages the registration form functionality
  */
 
+import '../../components/footer.mjs'
+import '../../components/header.mjs'
+import '../../../style.css'
+
 import { register, storeUserData } from '../../api/auth.mjs';
 import { validateEmail, validateRequired } from '../../utils/validation.mjs';
-import { navigateTo } from '../../utils/router.mjs';
+
 
 // DOM elements
 let registerForm;

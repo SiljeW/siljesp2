@@ -3,6 +3,10 @@
  * Displays detailed information about a specific pet
  */
 
+import '../../components/footer.mjs'
+import '../../components/header.mjs'
+import '../../../style.css'
+
 import { getPetById } from '../api/pets.mjs';
 import { isAuthenticated } from '../api/auth.mjs';
 
