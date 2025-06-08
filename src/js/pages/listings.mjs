@@ -3,8 +3,8 @@
  * Handles displaying all pets with search and filtering functionality
  */
 
-import '../../components/footer.mjs';
-import '../../components/header.mjs';
+import '../components/footer.mjs';
+import '../components/header.mjs';
 import '../../../style.css';
 
 import { isAuthenticated } from '../api/auth.mjs';

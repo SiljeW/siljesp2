@@ -4,9 +4,9 @@
  */
 
 // Import shared components and styles with correct paths
-import '../../components/header.mjs';
-import '../../components/footer.mjs';
-import '../../../style.css';
+import '../components/header.mjs';
+import '../components/footer.mjs';
+import '../../style.css';
 
 import { isAuthenticated } from '../api/auth.mjs';
 import { getPetById } from '../api/pets.mjs';

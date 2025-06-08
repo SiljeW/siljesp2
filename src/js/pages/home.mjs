@@ -3,9 +3,9 @@
  * Manages pet listings and search on the homepage
  */
 
-import '../../components/footer.mjs';
-import '../../components/header.mjs';
-import '../../../style.css';
+import '../components/footer.mjs';
+import '../components/header.mjs';
+import '../../style.css';
 
 import { isAuthenticated } from '../api/auth.mjs';
 
