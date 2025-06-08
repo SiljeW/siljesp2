@@ -5,7 +5,7 @@
 
 import '../components/footer.mjs';
 import '../components/header.mjs';
-import '../../../style.css';
+import '../../style.css';
 
 import { isAuthenticated } from '../api/auth.mjs';
 import { getAllPets, searchPets } from '../api/pets.mjs';
