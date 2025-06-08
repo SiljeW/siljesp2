@@ -42,7 +42,78 @@ function initCurrentPage() {
         console.error('Failed to initialize home page:', error);
       });
   } 
-  // Add other page initializations as needed (similar pattern)
+
+  else if (path === '/login.html') {
+    console.log('Initializing login page...');
+    import('./js/pages/auth/login.mjs')
+      .then(({ init }) => {
+        init();
+        console.log('Login page initialized successfully');
+      })
+      .catch(error => {
+        console.error('Failed to initialize login page:', error);
+      });
+  }
+
+  else if (path === '/register.html') {
+    console.log('Initializing register page...');
+    import('./js/pages/auth/register.mjs')
+      .then(({ init }) => {
+        init();
+        console.log('Register page initialized successfully');
+      })
+      .catch(error => {
+        console.error('Failed to initialize register page:', error);
+      });
+  }
+
+  else if (path === '/profile.html') {
+    console.log('Initializing profile page...');
+    import('./js/pages/auth/profile.mjs')
+      .then(({ init }) => {
+        init();
+        console.log('Profile page initialized successfully');
+      })
+      .catch(error => {
+        console.error('Failed to initialize profile page:', error);
+      });
+  }
+
+  else if (path === '/listings.html') {
+    console.log('Initializing profile page...');
+    import('./js/pages/listings.mjs')
+      .then(({ init }) => {
+        init();
+        console.log('Listings page initialized successfully');
+      })
+      .catch(error => {
+        console.error('Failed to initialize listings page:', error);
+      });
+  }
+
+  else if (path === '/pet-detail.html') {
+    console.log('Initializing profile page...');
+    import('./js/pages/pet-details.mjs')
+      .then(({ init }) => {
+        init();
+        console.log('Pet detail page initialized successfully');
+      })
+      .catch(error => {
+        console.error('Failed to initialize pet detail page:', error);
+      });
+  }
+
+  else if (path === '/pets.html') {
+    console.log('Initializing profile page...');
+    import('./js/pages/pet-details.mjs')
+      .then(({ init }) => {
+        init();
+        console.log('Pets page initialized successfully');
+      })
+      .catch(error => {
+        console.error('Failed to initialize pets page:', error);
+      });
+  }
 }
 
 /**

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PETsome - Profile Page</title>
-  <link rel="stylesheet" href="/src/style.css">
+  <link href="./src/style.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 <body class="bg-white min-h-screen">
@@ -12,7 +12,7 @@
     <div class="container mx-auto flex justify-between items-center">
       <div class="flex items-center">
         <div class="flex items-center">
-          <img src="../assets/images/PetsomeLogo.png" width="300" height="160" alt="PETsome Logo" class="w-40 md:w-[381px] h-auto md:h-[160px]">
+          <img src="/assets/images/PetsomeLogo.png" width="300" height="160" alt="PETsome Logo" class="w-40 md:w-[381px] h-auto md:h-[160px]">
         </div>
       </div>
       <button id="mobile-menu-button" aria-expanded="false" class="block md:hidden focus:outline-none">
@@ -46,7 +46,7 @@
               </div>
             </button>
             <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden">
-              <a href="profile.html" class="flex self-end px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
+              <a href="/profile.html" class="flex self-end px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
                 My Profile
               </a>
               <a href="/listings.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
@@ -75,7 +75,7 @@
           <span id="mobile-user-name" class="ml-2 font-medium">User</span>
         </div>
         <div class="flex flex-col items-end space-y-2 mt-2">
-          <a href="profile.html" class="flex self-end px-6 py-2 hover:bg-gray-100 transition rounded">My Profile</a>
+          <a href="/profile.html" class="flex self-end px-6 py-2 hover:bg-gray-100 transition rounded">My Profile</a>
           <a href="/listings.html" class="px-6 py-2 hover:bg-gray-100 transition rounded">Listings</a>
           <button id="mobile-logout-button" class="text-left px-6 py-2 text-gray-700 hover:bg-gray-100 transition rounded">
             Log out
@@ -83,11 +83,10 @@
         </div>
       </div>
     </div>
-    <script type="module" src="/src/js/components/header.mjs"></script>
   </header>
   <main class="flex-col justify-center items-center py-12">
     <div class="flex items-center mb-8">
-      <img src="./assets/images/profile.jpg" alt="Profile picture" class="w-16 h-16 rounded-full">
+      <img src="/assets/images/profile.jpg" alt="Profile picture" class="w-16 h-16 rounded-full">
       <div class="ml-4">
         <h1 class="text-2xl font-bold">My Pet Listings</h1>
         <p class="text-gray-600">Manage your pet listings here</p>
@@ -104,7 +103,6 @@
     <div id="pet-listings" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <!-- Pet listing cards will be dynamically inserted here -->
     </div>
-  </main>
   <div id="listing-modal" class="fixed inset-0 bg-black bg-opacity-30 items-center justify-center z-50 hidden">
     <div class="bg-white w-full max-w-md p-6 rounded-lg relative">
       <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-700">
@@ -214,6 +212,7 @@
       </div>
     </div>
   </footer>
+  <script type="module" src="/src/js/components/header.mjs"></script>
   <script type="module" src="/src/js/pages/auth/profile.mjs"></script>
 </body>
 </html>
