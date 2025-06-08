@@ -88,7 +88,7 @@ async function handleLogin(event) {
     storeUserData(userData);
     
     setTimeout(() => {
-      window.location.href = '/account/profile.html';
+      window.location.href = '/profile.html';
     }, 500);
   } catch (error) {
     // Show error message
