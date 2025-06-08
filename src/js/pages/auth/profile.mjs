@@ -1,5 +1,4 @@
 import { getCurrentUser, getApiKey, getToken, logout } from '../../api/auth.mjs';
-import { navigateTo } from '../../utils/router.mjs';
 import { setGetPetFormListener, setGetAllPetsFormListener, setUpdatePetFormListener } from '../../handlers/index.mjs'
 import { authFetch } from '../../utils/authFetch.mjs';
 import { load } from '../../utils/storage.mjs';
@@ -226,7 +225,8 @@ async function handleLogout() {
     await logout();
     
     // Redirect to login page
-    navigateTo('/account/login');
+    window.location.href = '/login.html';
+
   } catch (error) {
     console.error('Logout failed:', error);
   }
@@ -399,7 +399,7 @@ function createPetCard(pet) {
     viewBtn.addEventListener('click', () => {
       const petId = viewBtn.getAttribute('data-id');
       // Import the navigateTo function directly from the module to ensure consistency
-      navigateTo(`/account/pet-detail/${petId}`);
+      window.location.href = (`/account/pet-detail/${petId}`);
     });
   }
   

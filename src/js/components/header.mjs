@@ -4,7 +4,7 @@
  */
 
 import { isAuthenticated, getCurrentUser, logout } from '../api/auth.mjs';
-import { navigateTo } from '../utils/router.mjs';
+
 
 /**
  * Initialize the header component
@@ -166,7 +166,7 @@ async function handleLogout(event) {
   renderAuthState();
   
   // Redirect to homepage
-  navigateTo('/');
+  window.location.href = 'index.html';
 }
 
 // Initialize on DOM load

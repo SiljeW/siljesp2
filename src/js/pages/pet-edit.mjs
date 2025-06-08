@@ -9,7 +9,6 @@ import '../../../style.css'
 
 import { getPetById, updatePet, deletePet } from '/js/utils/pets/index.mjs';
 import { isAuthenticated } from '/js/api/auth.js';
-import { navigateTo } from '/js/utils/router.js';
 
 /**
  * Initialize the pet edit page
@@ -18,7 +17,7 @@ import { navigateTo } from '/js/utils/router.js';
 async function init(params = {}) {
   // Check if user is authenticated
   if (!isAuthenticated()) {
-    navigateTo('/account/login');
+    window.location.href = '/login.html';
     return;
   }
   
@@ -99,7 +98,7 @@ function attachEventListeners(pet) {
   // Back button
   const backButton = document.getElementById('back-btn');
   if (backButton) {
-    backButton.addEventListener('click', () => navigateTo(`/pets/${pet.id}`));
+    backButton.addEventListener('click', () => window.location.href = (`/pets/${pet.id}`));
   }
 }
 
@@ -115,7 +114,7 @@ async function handleDelete(petId) {
   try {
     await deletePet(petId);
     alert('Pet deleted successfully');
-    navigateTo('/pets');
+    window.location.href = '/pets.html';
   } catch (error) {
     alert('Failed to delete pet: ' + (error.message || 'Unknown error'));
   }

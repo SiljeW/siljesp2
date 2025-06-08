@@ -3,7 +3,6 @@
  * Initializes the app and handles global state
  */
 import './style.css'
-import { init as initRouter } from './utils/router.mjs';
 import { isAuthenticated, getCurrentUser } from './api/auth.mjs';
 
 /**
