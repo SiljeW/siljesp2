@@ -5,7 +5,6 @@
 
 import { isAuthenticated, getCurrentUser, logout } from '../api/auth.mjs';
 
-
 /**
  * Initialize the header component
  */
@@ -144,6 +143,9 @@ function attachEventListeners() {
   }
 }
 
+/**
+ * Toggle mobile menu visibility
+ */
 function toggleMobileMenu() {
   const mobileMenu = document.getElementById('mobile-menu');
   const isExpanded = this.getAttribute('aria-expanded') === 'true';
@@ -159,20 +161,29 @@ function toggleMobileMenu() {
 async function handleLogout(event) {
   event.preventDefault();
   
-  // Perform logout
-  logout();
-  
-  // Update UI
-  renderAuthState();
-  
-  // Redirect to homepage
-  window.location.href = 'index.html';
+  try {
+    // Perform logout
+    logout();
+    
+    // Update UI immediately
+    renderAuthState();
+    
+    // Redirect to homepage
+    window.location.href = '/';
+  } catch (error) {
+    console.error('Error during logout:', error);
+    // Still redirect even if there's an error
+    window.location.href = '/';
+  }
 }
+
+// Auto-initialize when this module is imported
+console.log('Header component loaded');
 
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', init);
 
-// Export functions
+// Export functions for manual initialization if needed
 export {
   init,
   renderAuthState
